@@ -4,7 +4,8 @@ from math import pi
 
 root = Tk()
 DoonoriPaariNr=0
-AktseptoriPaariNr=0
+AktseptoripaariNr=0
+
 
 def FosterRadius():
     siltRadius = ttk.Label(root, text="Försteri raadius on:")
@@ -32,23 +33,22 @@ def lisaDoonoriPaari():
     
 def lisaAktseptoriPaari():
     global AktseptoripaariNr
-    global AktseptorireaNr
+    global AkseptoriReaNr
     AktseptoripaariNr += 1
     #Lainepikkuse küsimine
     siltLainePikkus = ttk.Label(root, text="Aktseptori lainepikkus:")
-    siltLainePikkus.grid(column=0, padx=20, pady=10, row=reaNr )
+    siltLainePikkus.grid(column=3, padx=20, pady=10, row=AkseptoriReaNr )
     textLainePikkus = ttk.Entry(root)
-    textLainePikkus.grid(column=1, row = reaNr, sticky = E)
+    textLainePikkus.grid(column=4, row = AkseptoriReaNr, sticky = E)
 
     #Suhtelise intensiivsuse küsimine
     siltSuhtelineIntensiivsus = ttk.Label(root, text="Suhteline intensiivsus:")
-    siltSuhtelineIntensiivsus.grid(column=0, padx=20, pady=10, row=reaNr + 1 )
+    siltSuhtelineIntensiivsus.grid(column=3, padx=20, pady=10, row=AkseptoriReaNr + 1 )
     textSuhtelineIntensiivsus = ttk.Entry(root)
-    textSuhtelineIntensiivsus.grid(column=1, row = reaNr + 1, sticky = E)
-    reaNr += 2
-
+    textSuhtelineIntensiivsus.grid(column=4, row = AkseptoriReaNr + 1, sticky = E)
+    AkseptoriReaNr += 2
 root.title("Fluorestsentsspektrid")
-root.geometry("350x800")
+root.geometry("800x800")
 
 # Doonori maksimaalse neelduvuse lainepikkuse küsimine
 siltDMax = ttk.Label(root, text="Doonori neeldumismaksimum")
@@ -64,22 +64,27 @@ textQ.grid(column=1, row = 2, sticky = E)
 
 # Aktseptori maksimaalse neelduvuse lainepikkuse küsimine
 siltAMax = ttk.Label(root, text="Aktseptori neeldumismaksimum")
-siltAMax.grid(column=0, padx=20, pady=10, row=3)
+siltAMax.grid(column=3, padx=20, pady=10, row=1)
 textAMax = ttk.Entry(root)
-textAMax.grid(column=1, row = 3, sticky = E)
+textAMax.grid(column=4, row = 1, sticky = E)
 
 # Aktseptori neeldumiskoefitsiendi küsimine
 siltQ = ttk.Label(root, text="Aktseptori neeldumiskoefitsient")
-siltQ.grid(column=0, padx=20, pady=10, row=4)
+siltQ.grid(column=3, padx=20, pady=10, row=2)
 textQ = ttk.Entry(root)
-textQ.grid(column=1, row = 4, sticky = E)
+textQ.grid(column=4, row = 2, sticky = E)
 
 DoonoriReaNr = 7
 lisaDoonoriPaari()
 
+AkseptoriReaNr = 7
+lisaAktseptoriPaari()
 
-DoonoriPaariButton = ttk.Button(root, text="Lisa doonoripaar", command=lisaPaari)
-paariButton.grid(column=1, row=97, sticky=(N, S, W, E))
+DoonoriPaariButton = ttk.Button(root, text="Lisa doonoripaari", command=lisaDoonoriPaari)
+DoonoriPaariButton.grid(column=1, row=97, sticky=(N, S, W, E))
+
+AkseptoriPaariButton = ttk.Button(root, text="Lisa akseptoripaari", command=lisaAktseptoriPaari)
+AkseptoriPaariButton.grid(column=4, row=97, sticky=(N, S, W, E))
 
 generateButton = ttk.Button(root, text="Arvuta Försteri raadius!", command=FosterRadius)
 generateButton.grid(column=1, row=98, sticky=(N, S, W, E))
