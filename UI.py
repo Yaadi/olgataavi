@@ -8,11 +8,18 @@ AktseptoripaariNr=0
 
 
 def FosterRadius():
-    siltRadius = ttk.Label(root, text="Försteri raadius on:")
+    # Konstandid
+    Kapparuut=2/3  # Doonori ja aktseptori üleminekudipoolide orientatsioon
+    N=6.0221*1e23  # Avogadro
+    n=1.35  # Keskkonna murdumisnäitaja
+    # Försteri raadiuse arvutamine
+    Försteri_raadius=(9000*2.30258*Kapparuut*int(textQ.get()))/(128*pow(pi,5)*N*pow(n,4))
+    
+    siltRadius = ttk.Label(root, text="Försteri raadius on: ")
     siltRadius.grid(column=0, padx=20, pady=10, row=99)
     text = Text(root, height=1, width=15)
     text.grid(column=1, row=99, sticky=E)
-    text.insert(INSERT, "TODO")
+    text.insert(INSERT, Försteri_raadius)
 
 def lisaDoonoriPaari():
     global DoonoriPaariNr
@@ -33,25 +40,25 @@ def lisaDoonoriPaari():
     
 def lisaAktseptoriPaari():
     global AktseptoripaariNr
-    global AkseptoriReaNr
+    global AktseptoriReaNr
     AktseptoripaariNr += 1
     #Lainepikkuse küsimine
     siltLainePikkus = ttk.Label(root, text="Aktseptori lainepikkus:")
-    siltLainePikkus.grid(column=3, padx=20, pady=10, row=AkseptoriReaNr )
+    siltLainePikkus.grid(column=3, padx=20, pady=10, row=AktseptoriReaNr )
     textLainePikkus = ttk.Entry(root)
-    textLainePikkus.grid(column=4, row = AkseptoriReaNr, sticky = E)
+    textLainePikkus.grid(column=4, row = AktseptoriReaNr, sticky = E)
 
     #Suhtelise intensiivsuse küsimine
     siltSuhtelineIntensiivsus = ttk.Label(root, text="Suhteline intensiivsus:")
-    siltSuhtelineIntensiivsus.grid(column=3, padx=20, pady=10, row=AkseptoriReaNr + 1 )
+    siltSuhtelineIntensiivsus.grid(column=3, padx=20, pady=10, row=AktseptoriReaNr + 1 )
     textSuhtelineIntensiivsus = ttk.Entry(root)
-    textSuhtelineIntensiivsus.grid(column=4, row = AkseptoriReaNr + 1, sticky = E)
-    AkseptoriReaNr += 2
+    textSuhtelineIntensiivsus.grid(column=4, row = AktseptoriReaNr + 1, sticky = E)
+    AktseptoriReaNr += 2
 root.title("Fluorestsentsspektrid")
 root.geometry("800x800")
 
-# Doonori maksimaalse neelduvuse lainepikkuse küsimine
-siltDMax = ttk.Label(root, text="Doonori neeldumismaksimum")
+# Doonori maksimaalse emissiooni lainepikkuse küsimine
+siltDMax = ttk.Label(root, text="Doonori emissioonimaksimum")
 siltDMax.grid(column=0, padx=20, pady=10, row=1)
 textDMax = ttk.Entry(root)
 textDMax.grid(column=1, row = 1, sticky = E)
@@ -77,21 +84,16 @@ textQ.grid(column=4, row = 2, sticky = E)
 DoonoriReaNr = 7
 lisaDoonoriPaari()
 
-AkseptoriReaNr = 7
+AktseptoriReaNr = 7
 lisaAktseptoriPaari()
 
 DoonoriPaariButton = ttk.Button(root, text="Lisa doonoripaari", command=lisaDoonoriPaari)
 DoonoriPaariButton.grid(column=1, row=97, sticky=(N, S, W, E))
 
-AkseptoriPaariButton = ttk.Button(root, text="Lisa akseptoripaari", command=lisaAktseptoriPaari)
-AkseptoriPaariButton.grid(column=4, row=97, sticky=(N, S, W, E))
+AktseptoriPaariButton = ttk.Button(root, text="Lisa aktseptoripaari", command=lisaAktseptoriPaari)
+AktseptoriPaariButton.grid(column=4, row=97, sticky=(N, S, W, E))
 
 generateButton = ttk.Button(root, text="Arvuta Försteri raadius!", command=FosterRadius)
 generateButton.grid(column=1, row=98, sticky=(N, S, W, E))
-
-# Konstandid
-Kapparuut=2/3  # Doonori ja aktseptori üleminekudipoolide orientatsioon
-N=6.0221*1e23  # Avogadro
-n=1.35  # Keskkonna murdumisnäitaja
 
 root.mainloop()
