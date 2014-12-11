@@ -78,7 +78,11 @@ def integr():
     global DonorFile
     global AkseptorFile
     global J
-    if (checkFile()):
+    
+    if (len(textE.get()) == 0):
+        messagebox.showwarning("WARNING", "Aktseptori neeldumiskoefitsient ei saa olla tühi")
+    
+    else if (checkFile()):
         J = calculation(DonorFile, AkseptorFile, textE.get())
         siltIntegr = ttk.Label(root, text="Kattumisintegraal: ")
         siltIntegr.grid(column=0, padx=20, pady=10, row=101)
