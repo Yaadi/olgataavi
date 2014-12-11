@@ -17,22 +17,22 @@ AkseptorFile = ""
 
 def FosterRadius():
     try:
-        neeldumisKoef = float(textQ.get())
-        if (neeldumisKoef <= 1):
+        Kvantsaagis = float(textQ.get())
+        if (Kvantsaagis <= 1):
             error = False
         else:
             error = True
     except:
         error = True
     if (error):
-        messagebox.showwarning("WARNING", "Aktseptori neeldumiskoefitsient peab olema 0 ja 1 vahel")
+        messagebox.showwarning("WARNING", "Doonori kvantsaagise väärtus saab olla 0 ja 1 vahel")
     else:
         # Konstandid
         Kapparuut=2/3  # Doonori ja aktseptori üleminekudipoolide orientatsioon
         N=6.0221*1e23  # Avogadro
         n=1.35  # Keskkonna murdumisnäitaja
         # Försteri raadiuse arvutamine
-        Försteri_raadius=(9000*2.30258*Kapparuut*neeldumisKoef)/(128*pow(pi,5)*N*pow(n,4))
+        Försteri_raadius=(9000*2.30258*Kapparuut*Kvantsaagis)/(128*pow(pi,5)*N*pow(n,4))
         siltRadius = ttk.Label(root, text="Försteri raadius on: ")
         siltRadius.grid(column=0, padx=20, pady=10, row=101)
         text = Text(root, height=1, width=15)
@@ -79,10 +79,10 @@ root.title("Fluorestsentsspektrid")
 root.geometry("1000x300")
 
 # Doonori maksimaalse emissiooni lainepikkuse küsimine
-siltDMax = ttk.Label(root, text="Doonori emissioonimaksimum")
-siltDMax.grid(column=0, padx=20, pady=10, row=1)
-textDMax = ttk.Entry(root)
-textDMax.grid(column=1, row = 1, sticky = E)
+#siltDMax = ttk.Label(root, text="Doonori emissioonimaksimum")
+#siltDMax.grid(column=0, padx=20, pady=10, row=1)
+#textDMax = ttk.Entry(root)
+#textDMax.grid(column=1, row = 1, sticky = E)
 
 # Doonormolekuli kvantsaagise küsimine
 siltQ = ttk.Label(root, text="Doonori kvantsaagis")
@@ -91,16 +91,16 @@ textQ = ttk.Entry(root)
 textQ.grid(column=1, row = 2, sticky = E)
 
 # Aktseptori maksimaalse neelduvuse lainepikkuse küsimine
-siltAMax = ttk.Label(root, text="Aktseptori neeldumismaksimum")
-siltAMax.grid(column=3, padx=20, pady=10, row=1)
-textAMax = ttk.Entry(root)
-textAMax.grid(column=4, row = 1, sticky = E)
+#siltAMax = ttk.Label(root, text="Aktseptori neeldumismaksimum")
+#siltAMax.grid(column=3, padx=20, pady=10, row=1)
+#textAMax = ttk.Entry(root)
+#textAMax.grid(column=4, row = 1, sticky = E)
 
 # Aktseptori neeldumiskoefitsiendi küsimine
-siltQ = ttk.Label(root, text="Aktseptori neeldumiskoefitsient")
-siltQ.grid(column=3, padx=20, pady=10, row=2)
-textQ = ttk.Entry(root)
-textQ.grid(column=4, row = 2, sticky = E)
+siltE = ttk.Label(root, text="Aktseptori neeldumiskoefitsient")
+siltE.grid(column=3, padx=20, pady=10, row=2)
+textE = ttk.Entry(root)
+textE.grid(column=4, row = 2, sticky = E)
 
 #DoonoriReaNr = 7
 #lisaDoonoriPaari()
@@ -117,7 +117,7 @@ textQ.grid(column=4, row = 2, sticky = E)
 
 def donorFile():
     global DonorFile
-    Label(root, text="Donorite andmete fail")
+    Label(root, text="Doonormolekuli andmete fail")
     DonorFile = filedialog.askopenfilename(parent=root)
     splittedDonor = DonorFile.split("/")
     siltDonorFile = ttk.Label(root, text=splittedDonor[len(splittedDonor ) - 1])
@@ -127,7 +127,7 @@ def donorFile():
 
 def akseptorFile():
     global AkseptorFile
-    Label(root, text="Akseptorute andmete fail")
+    Label(root, text="Aktseptormolekuli andmete fail")
     AkseptorFile = filedialog.askopenfilename(parent=root)
     splittedAkseptor= AkseptorFile.split("/")
     siltAkseptorFile = ttk.Label(root, text=splittedAkseptor[len(splittedAkseptor ) - 1])
@@ -145,7 +145,7 @@ def integr():
     global AkseptorFile
     if (checkFile()):
         result = calculation(DonorFile, AkseptorFile)
-        siltIntegr = ttk.Label(root, text="Intergreerimine???: ")
+        siltIntegr = ttk.Label(root, text="Kattumisintegraal: ")
         siltIntegr.grid(column=0, padx=20, pady=10, row=109)
         text = Text(root, height=1, width=15)
         text.grid(column=1, row=109, sticky=E)
@@ -158,13 +158,13 @@ def checkFile():
     if (len(DonorFile) > 3 or len(AkseptorFile) > 3):
         return True
     else:
-        messagebox.showwarning("WARNING", "Donori ja Akseptori failivad peavad olema valitud")
+        messagebox.showwarning("WARNING", "Doonori ja Aktseptori failid peavad olema valitud")
         return False
 
-DoonoriPaariButton = ttk.Button(root, text="Lisa doonoripaaride andmed failist", command=donorFile)
+DoonoriPaariButton = ttk.Button(root, text="Lisa doonormolekuli andmed failist", command=donorFile)
 DoonoriPaariButton.grid(column=1, row=51, sticky=(N, S, W, E))
 
-AktseptoriPaariButton = ttk.Button(root, text="Lisa aktseptoripaari andmed failist", command=akseptorFile)
+AktseptoriPaariButton = ttk.Button(root, text="Lisa aktseptormolekuli andmed failist", command=akseptorFile)
 AktseptoriPaariButton.grid(column=4, row=51, sticky=(N, S, W, E))
 
 generateButton = ttk.Button(root, text="Arvuta Försteri raadius!", command=FosterRadius)
