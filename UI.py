@@ -144,7 +144,7 @@ def integr():
     global DonorFile
     global AkseptorFile
     if (checkFile()):
-        result = calculation(DonorFile, AkseptorFile)
+        result = calculation(DonorFile, AkseptorFile, textE.get())
         siltIntegr = ttk.Label(root, text="Kattumisintegraal: ")
         siltIntegr.grid(column=0, padx=20, pady=10, row=109)
         text = Text(root, height=1, width=15)
