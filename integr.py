@@ -1,14 +1,14 @@
 from pylab import *
 from math import pow
 
-def calculation(donor_file, akseptor_file):
+def calculation(donor_file, akseptor_file, epsilon):
     D_andmed=open(donor_file)
     A_andmed=open(akseptor_file)
     D_data=[]
     Y_D=[]
     A_data=[]
     Y_A=[]
-    A_epsilon=250000
+    A_epsilon=epsilon
     for rida in D_andmed:
         tükid=rida.strip().split(",")
         D_data.append([float(tükid[0]), float(tükid[1])])
