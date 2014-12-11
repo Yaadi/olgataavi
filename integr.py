@@ -1,0 +1,56 @@
+from pylab import *
+from math import pow
+
+def calculation(donor_file, akseptor_file):
+    D_andmed=open(donor_file)
+    A_andmed=open(akseptor_file)
+    D_data=[]
+    Y_D=[]
+    A_data=[]
+    Y_A=[]
+    A_epsilon=250000
+    for rida in D_andmed:
+        tükid=rida.strip().split(",")
+        D_data.append([float(tükid[0]), float(tükid[1])])
+
+        Y_D.append(float(tükid[1]))
+    for rida in A_andmed:
+        tükid=rida.strip().split(",")
+        A_data.append([float(tükid[0]), float(tükid[1])])
+        Y_A.append(float(tükid[1]))
+    A_andmed.close()
+    D_andmed.close()
+    kattumispunktid=[]
+    kattumissumma=0.0
+    viga=0.000001
+    for i in range(len(D_data)):
+        for j in range(len(A_data)):
+            if D_data[i][0]-viga<A_data[j][0] and D_data[i][0]+viga>A_data[j][0]:
+                kattumine=(D_data[i][1]*A_data[j][1]*float(A_epsilon)*pow(D_data[i][0],4))
+                kattumissumma+=kattumine
+                kattumispunktid.append([D_data[i][0],D_data[i][1],A_data[j][0], A_data[j][1],kattumine,kattumissumma])
+
+    #X_D=np.linspace(D_data[0][0], D_data[-1][0],num=len(D_data))
+    #plot(X_D,Y_D)
+    #X_A=np.linspace(A_data[0][0], A_data[-1][0],num=len(A_data))
+    #plot(X_A,Y_A)
+    #show()
+
+    def integreerimine(kattumismaatriks, veerg1=0, veerg2=1):
+        X_vana = 0
+        X_uus = 0
+        Y_vana = 0
+        Y_uus = 0
+        summa = 0
+        for i in range(len(kattumismaatriks)):
+            if i > 0:
+                X_vana = X_uus
+                Y_vana = Y_uus
+                X_uus = kattumismaatriks[i][veerg1]
+                Y_uus = kattumismaatriks[i][veerg2]
+                summa = Y_vana * (X_uus - X_vana) + (Y_uus - Y_vana) * (X_uus - X_vana) / 2.0 + summa
+            else:
+                X_uus = kattumismaatriks[i][veerg1]
+                Y_uus = kattumismaatriks[i][veerg2]
+        return (summa)
+    return (integreerimine(kattumispunktid,0,4))
